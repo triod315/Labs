@@ -25,11 +25,11 @@ namespace Lab10Part1
             }
             while (!int.TryParse(Console.ReadLine(), out n));//chek for correct format of n
             int temp_var;
-            for (int i = 1; i < n; i++)
+            for (int i = 0; i < n; i++)
             {
                 do
                 {
-                    Console.WriteLine("Введіть {0} елемент", i + 1);
+                    Console.WriteLine("Введіть {0} елемент", i+1);
                 }
                 while (!int.TryParse(Console.ReadLine(), out temp_var));//chek for correct format of temp_var
                 binary_writer.Write(temp_var);
@@ -39,6 +39,7 @@ namespace Lab10Part1
 
         static void Main(string[] args)
         {
+            CreateFile();
             int sum = 0;
             int max_sum = -65535;
             int temp_elem;
@@ -48,16 +49,18 @@ namespace Lab10Part1
             
             while (bianry_reader.BaseStream.Position != bianry_reader.BaseStream.Length)
             {
-                temp_elem = bianry_reader.Read();
+                temp_elem = bianry_reader.ReadInt32();
                 if (temp_elem > prevois_elem) sum += temp_elem;
                 else
                 {
                     if (sum > max_sum) max_sum = sum;
                     sum = 0;
+                    sum += temp_elem;
                 }
                 prevois_elem = temp_elem;
+                if(bianry_reader.BaseStream.Position == bianry_reader.BaseStream.Length) if (sum > max_sum) max_sum = sum;
             }
-            Console.WriteLine("Max sum=",max_sum);
+            Console.WriteLine("Max sum="+max_sum);
             bianry_reader.Close();
         }
     }
