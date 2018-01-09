@@ -42,13 +42,22 @@ namespace Lab10Part1
             int sum = 0;
             int max_sum = -65535;
             int temp_elem;
+            int prevois_elem=-65535;
             string file_name = GetFileName();
             BinaryReader bianry_reader = new BinaryReader(File.Open(file_name, FileMode.Open));
+            
             while (bianry_reader.BaseStream.Position != bianry_reader.BaseStream.Length)
             {
                 temp_elem = bianry_reader.Read();
-
+                if (temp_elem > prevois_elem) sum += temp_elem;
+                else
+                {
+                    if (sum > max_sum) max_sum = sum;
+                    sum = 0;
+                }
+                prevois_elem = temp_elem;
             }
+            Console.WriteLine("Max sum=",max_sum);
             bianry_reader.Close();
         }
     }
