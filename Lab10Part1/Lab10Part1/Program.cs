@@ -9,7 +9,7 @@ namespace Lab10Part1
 {
     class Program
     {
-        static string GetFileName()//get file name from console and check correct format
+        static string GetFileName()//get file name from console and check correct format in future
         {
             bool err_flag = false;
             string fname;
