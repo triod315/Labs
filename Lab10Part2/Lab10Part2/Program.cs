@@ -35,46 +35,55 @@ namespace Lab10Part2
         }
         static void Main(string[] args)
         {
-            string input_file_name;
-            do
-            {
-                Console.Write("f1 ");
-                input_file_name = GetFileName();
-            }
-            while (!File.Exists(input_file_name));
-            Console.Write("f2 ");
-            string output_file_name = GetFileName();
-
-            string input_file_content="";
-            string text_to_rewrite="";
-            Console.WriteLine("Write this word");
-            string this_word = Console.ReadLine();
-
-            StreamReader f1_reader = new StreamReader(input_file_name);
-            StreamWriter f2_writer = new StreamWriter(output_file_name);
             try
             {
-                string s = "";
-               
-                while ((s = f1_reader.ReadLine()) != null)
+                string input_file_name;
+                do
                 {
-                    if (s.Split(' ')[0] == this_word)
-                    {
-                        input_file_content = text_to_rewrite + s + "\r\n" + f1_reader.ReadToEnd();
-                        break;
-                    }
-                    text_to_rewrite += s + "\r\n";
+                    Console.Write("f1 ");
+                    input_file_name = GetFileName();
                 }
-                f2_writer.WriteLine(input_file_content + "\r\n" + text_to_rewrite);
+                while (!File.Exists(input_file_name));
+                Console.Write("f2 ");
+                string output_file_name = GetFileName();
+
+                string input_file_content = "";
+                string text_to_rewrite = "";
+                Console.WriteLine("Write this word");
+                string this_word = Console.ReadLine();
+
+                StreamReader f1_reader = new StreamReader(input_file_name);
+                StreamWriter f2_writer = new StreamWriter(output_file_name);
+                try
+                {
+                    string s = "";
+
+                    while ((s = f1_reader.ReadLine()) != null)
+                    {
+                        if (s.Split(' ')[0] == this_word)
+                        {
+                            input_file_content = text_to_rewrite + s + "\r\n" + f1_reader.ReadToEnd();
+                            break;
+                        }
+                        text_to_rewrite += s + "\r\n";
+                    }
+                    f2_writer.WriteLine(input_file_content + "\r\n" + text_to_rewrite);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error: " + e.Message);
+                }
+                finally
+                {
+                    f1_reader.Close();
+                    f2_writer.Close();
+                }
             }
-            catch (Exception e)
+            catch (Exception er)
             {
-                Console.WriteLine("Error: " + e.Message);
-            }
-            finally
-            {
-                f1_reader.Close();
-                f2_writer.Close();
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("FATAL ERROR: "+er.Message);
+                Console.ResetColor();
             }
         }
     }
