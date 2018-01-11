@@ -9,7 +9,7 @@ namespace Lab10Part1
 {
     class Program
     {
-        static string GetFileName()//get file name from console and check correct format in future
+        static string GetFileName()//get file name from console and check correct format
         {
             bool err_flag = false;
             string fname;
@@ -40,7 +40,7 @@ namespace Lab10Part1
                 try
                 {
                     int n;//count of elements
-                    string file_name =path+ GetFileName();
+                    string file_name = path + GetFileName();
                     BinaryWriter binary_writer = new BinaryWriter(File.Open(file_name, FileMode.Create));
                     try
                     {
@@ -48,7 +48,7 @@ namespace Lab10Part1
                         {
                             Console.WriteLine("Write count of elements");
                         }
-                        while (!int.TryParse(Console.ReadLine(), out n) && n>1);//chek for correct format of n
+                        while (!int.TryParse(Console.ReadLine(), out n) && n > 1);//chek for correct format of n
                         int temp_var;
                         for (int i = 0; i < n; i++)
                         {
@@ -91,7 +91,7 @@ namespace Lab10Part1
                 string file_name;
                 do
                 {
-                    file_name =path+ GetFileName();
+                    file_name = path + GetFileName();
                 } while (!File.Exists(file_name));
 
 
@@ -127,7 +127,7 @@ namespace Lab10Part1
             catch (Exception err)
             {
                 Console.BackgroundColor = ConsoleColor.Red;
-                Console.WriteLine("FATAL ERROR: "+err.Message);
+                Console.WriteLine("FATAL ERROR: " + err.Message);
                 Console.ResetColor();
             }
         }
