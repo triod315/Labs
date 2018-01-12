@@ -62,12 +62,12 @@ namespace Lab10Part2
                     {
                         if (s.Split(' ')[0] == this_word)
                         {
-                            input_file_content = text_to_rewrite + s + "\r\n" + f1_reader.ReadToEnd();
+                            input_file_content = text_to_rewrite + s;
                             break;
                         }
                         text_to_rewrite += s + "\r\n";
                     }
-                    f2_writer.WriteLine(input_file_content + "\r\n" + text_to_rewrite);
+                    f2_writer.WriteLine(input_file_content);
                 }
                 catch (Exception e)
                 {
