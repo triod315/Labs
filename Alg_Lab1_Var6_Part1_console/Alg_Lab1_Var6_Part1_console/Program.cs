@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using System.Globalization;
 
 namespace Alg_Lab1_Var6_Part1_console
 {
@@ -24,11 +26,21 @@ namespace Alg_Lab1_Var6_Part1_console
             Console.WriteLine("\n_________________________________________________________________________");
         }
 
+        static void PrintTableInFile(double[] x_arr, double[] y_arr)
+        {
+            StreamWriter sw = new StreamWriter("file.txt");
+            for (int i=0;i<x_arr.Length;i++)
+            {
+                sw.Write("{");
+                sw.Write("{0,4:f2},", x_arr[i]);
+                sw.Write("{0,-8:f5}", y_arr[i]);
+                sw.Write("},");
+            }
+            sw.Close();
+        }
+
         static void LinearInterpolation(double[] in_x_arr, double[] in_y_arr, double[] out_x_arr, double[] out_y_arr, double from, double h)
         {
-            out_x_arr[0] = from;
-            int j = 0;
-
             double[] a = new double[in_x_arr.Length - 1];
             double[] b = new double[in_x_arr.Length - 1];
 
@@ -38,6 +50,7 @@ namespace Alg_Lab1_Var6_Part1_console
                 b[i] = in_y_arr[i] - a[i] * in_x_arr[i];
             }
 
+            int j = 0;
             for (int i = 0; i < out_x_arr.Length; i++)
             {
                 if (i == 0)
@@ -53,8 +66,38 @@ namespace Alg_Lab1_Var6_Part1_console
             }
         }
 
+        static void LagrangeInterpolation(double[] in_x_arr, double[] in_y_arr, double[] out_x_arr, double[] out_y_arr, double from, double h)
+        {
+            for (int j = 0; j < out_x_arr.Length; j++)
+            {
+                if (j == 0)
+                    out_x_arr[j] = from;
+                else
+                    out_x_arr[j] = out_x_arr[j - 1]+h;
+
+                out_y_arr[j] = 0;
+                for (int i = 0; i < in_y_arr.Length; i++)
+                {
+                    out_y_arr[j] += in_y_arr[i] * getL(out_x_arr[j], i, in_x_arr);
+                }
+            }
+        }
+
+        static double getL(double x, int i, double[] x_arr)
+        {
+            double l=1;
+            for (int j = 0; j < x_arr.Length; j++)
+            {
+                if (j != i)
+                    l *=( x - x_arr[j])/(x_arr[i]-x_arr[j]);
+            }
+            return l;
+        }
+
+
         static void Main(string[] args)
         {
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
             double from = -1.5; //початкова межа
             double to = 1.5;    //кінцева межа
             double h = 0.1f;     //крок x в таблиці
@@ -88,6 +131,13 @@ namespace Alg_Lab1_Var6_Part1_console
             LinearInterpolation(x_array,y_array,lin_x_arr,lin_y_arr,from,h);
 
             PrintTable(lin_x_arr,lin_y_arr);
+
+            double[] lag_x_arr = new double[new_n];
+            double[] lag_y_arr = new double[new_n];
+            LagrangeInterpolation(x_array, y_array, lag_x_arr, lag_y_arr, from, h);
+            PrintTable(lag_x_arr, lag_y_arr);
+
+            PrintTableInFile(lin_x_arr,lin_y_arr);
         }
     }
 }
