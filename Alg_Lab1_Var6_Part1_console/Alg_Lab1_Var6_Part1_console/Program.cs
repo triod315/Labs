@@ -137,7 +137,7 @@ namespace Alg_Lab1_Var6_Part1_console
             LagrangeInterpolation(x_array, y_array, lag_x_arr, lag_y_arr, from, h);
             PrintTable(lag_x_arr, lag_y_arr);
 
-            PrintTableInFile(lin_x_arr,lin_y_arr);
+            PrintTableInFile(lag_x_arr, lag_y_arr);
         }
     }
 }
