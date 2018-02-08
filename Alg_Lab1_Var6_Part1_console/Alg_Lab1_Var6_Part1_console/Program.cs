@@ -193,7 +193,7 @@ namespace Alg_Lab1_Var6_Part1_console
             double[] true_first_diff_y = new double[out_x_array.Length];//масив істинних значень похідної функції
             for(int i = 0; i < out_x_array.Length; i++)
             {
-                true_first_diff_y[i] = (-4 * out_x_array[i] + Math.Pow(out_x_array[i], 3))/ (Math.Pow(out_x_array[i], 4) - 2 * Math.Pow(out_x_array[i], 2) + 3);
+                true_first_diff_y[i] = (-4 * out_x_array[i] + 4*Math.Pow(out_x_array[i], 3))/ (Math.Pow(out_x_array[i], 4) - 2 * Math.Pow(out_x_array[i], 2) + 3);
             }
 
             Console.WriteLine("\nІстинні значення першої похідної");
@@ -202,7 +202,7 @@ namespace Alg_Lab1_Var6_Part1_console
             double[] true_second_diff_y = new double[out_x_array.Length];//масив істинних значень другої похідної функції
             for (int i=0;i<out_x_array.Length;i++)
             {
-                true_second_diff_y[i] = 4 * (-Math.Pow(out_x_array[i], 6) + Math.Pow(out_x_array[i], 4)+ 7*Math.Pow(out_x_array[i], 2)+3)/Math.Pow(Math.Pow(out_x_array[i], 4)-2* Math.Pow(out_x_array[i], 2)+3,2);
+                true_second_diff_y[i] = 4 * (-Math.Pow(out_x_array[i], 6) + Math.Pow(out_x_array[i], 4)+ 7*Math.Pow(out_x_array[i], 2)-3)/Math.Pow(Math.Pow(out_x_array[i], 4)-2* Math.Pow(out_x_array[i], 2)+3,2);
             }
 
             Console.WriteLine("\nІстинні значення другої похідної");
@@ -219,7 +219,7 @@ namespace Alg_Lab1_Var6_Part1_console
             Console.WriteLine("\nЗначення другої похідної");
             PrintTable(out_x_array, second_diff_y);
 
-            PrintTableInFile(out_x_array, true_first_diff_y);
+            PrintTableInFile(out_x_array, first_diff_y);
         }
     }
 }
