@@ -34,7 +34,7 @@ namespace Lab10Part1
         }
         static void CreateFile()//create and fill binary file
         {
-            const string path = "C:\\Users\\user\\Desktop\\";
+            const string path = @"C:\Users\user\Desktop\";
             bool err_flag = false;
             do
                 try
@@ -81,7 +81,7 @@ namespace Lab10Part1
         {
             try
             {
-                const string path = "C:\\Users\\user\\Desktop\\";
+                const string path = @"C:\Users\user\Desktop\";
                 CreateFile();
                 int counter = 0;
                 int sum = 0;
