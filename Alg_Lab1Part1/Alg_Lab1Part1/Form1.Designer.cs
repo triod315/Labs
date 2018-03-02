@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea17 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea18 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea19 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea20 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -139,8 +139,8 @@
             // 
             // chart2
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chart2.ChartAreas.Add(chartArea1);
+            chartArea17.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea17);
             this.chart2.Location = new System.Drawing.Point(540, 40);
             this.chart2.Name = "chart2";
             this.chart2.Size = new System.Drawing.Size(510, 300);
@@ -149,8 +149,8 @@
             // 
             // chart3
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chart3.ChartAreas.Add(chartArea2);
+            chartArea18.Name = "ChartArea1";
+            this.chart3.ChartAreas.Add(chartArea18);
             this.chart3.Location = new System.Drawing.Point(12, 349);
             this.chart3.Name = "chart3";
             this.chart3.Size = new System.Drawing.Size(510, 300);
@@ -159,8 +159,8 @@
             // 
             // chart4
             // 
-            chartArea3.Name = "ChartArea1";
-            this.chart4.ChartAreas.Add(chartArea3);
+            chartArea19.Name = "ChartArea1";
+            this.chart4.ChartAreas.Add(chartArea19);
             this.chart4.Location = new System.Drawing.Point(540, 349);
             this.chart4.Name = "chart4";
             this.chart4.Size = new System.Drawing.Size(510, 300);
@@ -169,8 +169,8 @@
             // 
             // chart1
             // 
-            chartArea4.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea4);
+            chartArea20.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea20);
             this.chart1.Location = new System.Drawing.Point(12, 40);
             this.chart1.Name = "chart1";
             this.chart1.Size = new System.Drawing.Size(510, 300);

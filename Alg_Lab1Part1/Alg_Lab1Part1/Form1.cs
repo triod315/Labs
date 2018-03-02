@@ -18,6 +18,9 @@ namespace Alg_Lab1Part1
             InitializeComponent();
         }
 
+        double[] x_array = { -1.6, -1.1, -0.6, -0.2, 0.2, 0.7, 0.93, 1.2, 1.51 };
+        double[] y_array = { 1.48921, 0.71496, 0.87946, 1.07213, 1.07213, 0.81541, 0.70223, 0.78554, 1.29161 };
+
         /// <summary>
         /// Заповнює масив x з заданим кроком
         /// </summary>
@@ -63,7 +66,7 @@ namespace Alg_Lab1Part1
                 {
                     if (out_x_arr[i] < in_x_arr[j + 1] && out_x_arr[i] > in_x_arr[j]) break;
                 }
-
+                if(j!=in_x_arr.Length)
                 out_y_arr[i] = a[j] * out_x_arr[i] + b[j];
             }
         }
@@ -137,6 +140,18 @@ namespace Alg_Lab1Part1
             chart.Series.Add(ser);
         }
 
+        static void DisplayTable(DataGridView table,double[] x_arr, double[] y_arr)
+        {
+            table.Rows.Clear();
+            table.ColumnCount = x_arr.Length;
+            for (int i = 0; i< x_arr.Length;i++)
+            {
+                table[i, 0].Value = x_arr[i];
+                table[i, 1].Value = y_arr[i];
+            }
+ 
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             
@@ -147,8 +162,7 @@ namespace Alg_Lab1Part1
             do { } while (!double.TryParse(textBox1.Text, out h));
             int n = 9;          //кількість вузлів
 
-            double[] x_array = { -1.6, -1.1, -0.6, -0.2, 0.2, 0.7, 0.93, 1.2, 1.51 };
-            double[] y_array = { 1.48921, 0.71496, 0.87946, 1.07213, 1.07213, 0.81541, 0.70223, 0.78554, 1.29161 };
+            
 
             Console.WriteLine("Вузли функцiї");
 
@@ -215,6 +229,7 @@ namespace Alg_Lab1Part1
                 {
                     n = int.Parse(n_string.Text);
                     n_input.Close();
+                    GetTable(n);
                 } catch (Exception) { }
             }
             btn.Click += new EventHandler(Ok_clik);
@@ -226,7 +241,52 @@ namespace Alg_Lab1Part1
 
         }
 
-        
+        private void GetTable(int n)
+        {
+            Form table_form = new Form();
+            DataGridView table = new DataGridView();
+            table.RowCount = 3;
+            table.ColumnCount = n;
+            table.AllowUserToAddRows = false;
+            table_form.Width = 1200;
+            table.Width = 1180;
+            table.Height = 50;
+            table.ColumnHeadersVisible = false;
+
+            table.RowHeadersWidth = 50;
+
+            table.Rows[0].HeaderCell.Value = "f(x)";
+            table.Rows[1].HeaderCell.Value = "x";
+
+            table_form.Height = 150;
+            table_form.StartPosition = FormStartPosition.CenterScreen;
+
+            void Ok_pressed(object sender, EventArgs e)
+            {
+                x_array = new double[n];
+                y_array = new double[n];
+                for (int i = 0; i < n; i++)
+                {
+                    x_array[i] = Convert.ToDouble(table[i, 0].Value);
+                    y_array[i] = Convert.ToDouble(table[i, 1].Value);
+                }
+                table_form.Close();
+            }
+
+            Button Ok = new Button();
+            Ok.Text="Ok";
+            Ok.Location = new Point(table_form.Width/2-Ok.Width/2,table.Height+20);
+            Ok.Click += new EventHandler(Ok_pressed);
+
+
+
+            table_form.Controls.Add(Ok);
+            table_form.Controls.Add(table);
+
+            table_form.ShowDialog();
+
+
+        }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
