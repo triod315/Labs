@@ -260,6 +260,10 @@ namespace Alg_Lab1Part1
 
             table_form.Height = 150;
             table_form.StartPosition = FormStartPosition.CenterScreen;
+            table_form.MinimizeBox = false;
+            table_form.MaximizeBox = false;
+            table_form.FormBorderStyle = FormBorderStyle.FixedDialog;
+            table.ScrollBars = ScrollBars.Horizontal;
 
             void Ok_pressed(object sender, EventArgs e)
             {
@@ -294,6 +298,16 @@ namespace Alg_Lab1Part1
         }
 
         private void inputTableToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GetPoints();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            comboBox1.SelectedIndex = 1;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
         {
             GetPoints();
         }
