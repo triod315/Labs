@@ -20,6 +20,10 @@ namespace Alg_Lab1Part1
 
         double[] x_array = { -1.6, -1.1, -0.6, -0.2, 0.2, 0.7, 0.93, 1.2, 1.51 };
         double[] y_array = { 1.48921, 0.71496, 0.87946, 1.07213, 1.07213, 0.81541, 0.70223, 0.78554, 1.29161 };
+        double[] first_diff_y;
+        double[] out_x_array;
+        double[] out_y_arr;
+        double[] second_diff_y;
 
         /// <summary>
         /// Заповнює масив x з заданим кроком
@@ -35,7 +39,8 @@ namespace Alg_Lab1Part1
             x_arr[0] = from;
             for (int i = 1; i < n; i++)
             {
-                x_arr[i] = x_arr[i - 1] + h;
+                x_arr[i] = (x_arr[i - 1] +h);
+                Console.WriteLine(-0.2+h);
             }
             return x_arr;
         }
@@ -142,8 +147,18 @@ namespace Alg_Lab1Part1
 
         static void DisplayTable(DataGridView table,double[] x_arr, double[] y_arr)
         {
-            table.Rows.Clear();
+            //table.Rows.Clear();
+            table.RowCount = 3;
             table.ColumnCount = x_arr.Length;
+            table.Width = 1180;
+            table.Height = 80;
+            table.ColumnHeadersVisible = false;
+            table.AllowUserToAddRows = false;
+            table.RowHeadersWidth = 50;
+
+            table.Rows[0].HeaderCell.Value = "x";
+            table.Rows[1].HeaderCell.Value = "f(x)";
+
             for (int i = 0; i< x_arr.Length;i++)
             {
                 table[i, 0].Value = x_arr[i];
@@ -166,19 +181,13 @@ namespace Alg_Lab1Part1
 
             Console.WriteLine("Вузли функцiї");
 
-            double[] out_x_array = GenereteXarray(from, h, to);
-           /* double[] true_y_array = new double[out_x_array.Length];
+            out_x_array = GenereteXarray(from, h, to);
 
-            for (int i = 0; i < out_x_array.Length; i++)
-            {
-                true_y_array[i] = Math.Log(Math.Pow(out_x_array[i], 4) - 2 * Math.Pow(out_x_array[i], 2) + 3);
-                
-            }*/
             ShowChart(chart1,x_array,y_array);
 
 
 
-            double[] out_y_arr = new double[out_x_array.Length];//масив значень функції отриманих апроксимацією
+            out_y_arr = new double[out_x_array.Length];//масив значень функції отриманих апроксимацією
 
             if (comboBox1.SelectedIndex == 0)
             {
@@ -191,8 +200,8 @@ namespace Alg_Lab1Part1
 
             ShowChart(chart2, out_x_array, out_y_arr);
 
-            double[] first_diff_y = new double[out_x_array.Length];//масив значень похідної функції отриманих числовим дифференціюванням
-            double[] second_diff_y = new double[out_x_array.Length];//масив значень другої похідної функції отриманих числовим дифференціюванням
+            first_diff_y = new double[out_x_array.Length];//масив значень похідної функції отриманих числовим дифференціюванням
+            second_diff_y = new double[out_x_array.Length];//масив значень другої похідної функції отриманих числовим дифференціюванням
 
             Differentiate(out_x_array, out_y_arr, first_diff_y, second_diff_y, h);
             ShowChart(chart3,out_x_array,first_diff_y);
@@ -310,6 +319,40 @@ namespace Alg_Lab1Part1
         private void button2_Click(object sender, EventArgs e)
         {
             GetPoints();
+        }
+
+        private void showOutputTableToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Form output_table_form = new Form();
+                output_table_form.Width = 1200;
+                output_table_form.Height = 450;
+
+                DataGridView in_table = new DataGridView();
+                DisplayTable(in_table, x_array, y_array);
+
+                DataGridView interp_table = new DataGridView();
+                interp_table.Location = new Point(in_table.Location.X, in_table.Location.Y + 100);
+                DisplayTable(interp_table, out_x_array, out_y_arr);
+
+                DataGridView first_diff_table = new DataGridView();
+                first_diff_table.Location = new Point(in_table.Location.X, interp_table.Location.Y + 100);
+                DisplayTable(first_diff_table, out_x_array, first_diff_y);
+
+                DataGridView second_diff_table = new DataGridView();
+                second_diff_table.Location = new Point(in_table.Location.X, first_diff_table.Location.Y + 100);
+                DisplayTable(second_diff_table, out_x_array, second_diff_y);
+
+
+
+                output_table_form.Controls.Add(in_table);
+                output_table_form.Controls.Add(interp_table);
+                output_table_form.Controls.Add(first_diff_table);
+                output_table_form.Controls.Add(second_diff_table);
+                output_table_form.Show();
+            }
+            catch (Exception) { }
         }
     }
 }
