@@ -171,8 +171,8 @@ namespace Alg_Lab1Part1
         {
             
             System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
-            double from = -1.5; //початкова межа
-            double to = 1.5;    //кінцева межа
+            double from = Convert.ToDouble(textBox3.Text); //початкова межа
+            double to = Convert.ToDouble(textBox2.Text); ;    //кінцева межа
             double h;     //крок x в таблиці
             do { } while (!double.TryParse(textBox1.Text, out h));
             int n = 9;          //кількість вузлів
