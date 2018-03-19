@@ -95,12 +95,12 @@ namespace Lab10Part1
                 } while (!File.Exists(file_name));
 
 
-                BinaryReader bianry_reader = new BinaryReader(File.Open(file_name, FileMode.Open));
+                BinaryReader binary_reader = new BinaryReader(File.Open(file_name, FileMode.Open));
                 try
                 {
-                    while (bianry_reader.BaseStream.Position != bianry_reader.BaseStream.Length)
+                    while (binary_reader.BaseStream.Position != binary_reader.BaseStream.Length)
                     {
-                        temp_elem = bianry_reader.ReadInt32();
+                        temp_elem = binary_reader.ReadInt32();
                         counter++;
                         if (temp_elem <= prevois_elem) { sum = 0; counter = 0; }
                         sum += temp_elem;
@@ -111,7 +111,7 @@ namespace Lab10Part1
                         Console.WriteLine("Growing sequence not found");
                     else
                         Console.WriteLine("Max sum=" + max_sum);
-                    bianry_reader.Close();
+                    binary_reader.Close();
                 }
                 catch (Exception e) { Console.WriteLine(e.Message); }
                 finally { bianry_reader.Close(); }
