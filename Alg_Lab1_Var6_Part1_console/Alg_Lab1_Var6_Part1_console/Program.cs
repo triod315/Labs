@@ -109,7 +109,7 @@ namespace Alg_Lab1_Var6_Part1_console
                 for (int i = 0; i < in_y_arr.Length; i++)
                 {
                     for (int k = 0; k < in_y_arr.Length; k++)
-                    {
+                  {
                         if (k != i)
                             l *= (out_x_arr[j] - in_x_arr[k]) /( in_x_arr[i] - in_x_arr[k]);
                     }
@@ -219,7 +219,7 @@ namespace Alg_Lab1_Var6_Part1_console
             Console.WriteLine("\nЗначення другої похідної");
             PrintTable(out_x_array, second_diff_y);
 
-            PrintTableInFile(out_x_array, first_diff_y);
+            //PrintTableInFile(out_x_array, first_diff_y);
         }
     }
 }

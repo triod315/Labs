@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9F4F88A5-F820-4AEE-A3D1-F2FE01E537B4}</ProjectGuid>
+    <ProjectGuid>{A7F2930C-14BB-4E9A-B6B7-B94E81B5E449}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Alg_Lab2_Var6</RootNamespace>
-    <AssemblyName>Alg_Lab2_Var6</AssemblyName>
+    <RootNamespace>Alg_Lab3_Var6</RootNamespace>
+    <AssemblyName>Alg_Lab3_Var6</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -21,7 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <DocumentationFile>bin\Debug\Alg_Lab3_Var6.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
