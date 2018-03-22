@@ -32,89 +32,72 @@ namespace Lab10Part1
             } while (err_flag);
             return fname;
         }
-        static void CreateFile()//create and fill binary file
+        static void CreateFile(ref BinaryWriter binary_writer)//create and fill binary file
         {
             const string path = @"C:\Users\user\Desktop\";
-            bool err_flag = false;
+
+            int n;//count of elements
+            string file_name = path + GetFileName();
+            binary_writer = new BinaryWriter(File.Open(file_name, FileMode.Create));
             do
-                try
+            {
+               Console.WriteLine("Write count of elements");
+            }
+            while (!int.TryParse(Console.ReadLine(), out n) && n > 1);//chek for correct format of n
+            int temp_var;
+            for (int i = 0; i < n; i++)
+            {
+                do
                 {
-                    int n;//count of elements
-                    string file_name = path + GetFileName();
-                    BinaryWriter binary_writer = new BinaryWriter(File.Open(file_name, FileMode.Create));
-                    try
-                    {
-                        do
-                        {
-                            Console.WriteLine("Write count of elements");
-                        }
-                        while (!int.TryParse(Console.ReadLine(), out n) && n > 1);//chek for correct format of n
-                        int temp_var;
-                        for (int i = 0; i < n; i++)
-                        {
-                            do
-                            {
-                                Console.WriteLine("Введіть {0} елемент", i + 1);
-                            }
-                            while (!int.TryParse(Console.ReadLine(), out temp_var));//chek for correct format of temp_var
-                            binary_writer.Write(temp_var);
-                        }
-                        binary_writer.Close();
-                    }
-                    catch (Exception er) { Console.WriteLine(er.Message); }
-                    finally
-                    {
-                        binary_writer.Close();
-                    }
+                     Console.WriteLine("Введіть {0} елемент", i + 1);
                 }
-                catch (Exception e)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Error: " + e.Message);
-                    Console.ResetColor();
-                    err_flag = true;
-                }
-            while (err_flag);
+                while (!int.TryParse(Console.ReadLine(), out temp_var));//chek for correct format of temp_var
+                binary_writer.Write(temp_var);
+            }
+            binary_writer.Close();
+        }
+
+        static void JustDoIt(ref BinaryReader binary_reader,string file_name)
+        {
+            int counter = 0;
+            int sum = 0;
+            int max_sum = -65535;
+            int temp_elem;
+            int prevois_elem = -65535;
+            binary_reader = new BinaryReader(File.Open(file_name, FileMode.Open));
+            while (binary_reader.BaseStream.Position != binary_reader.BaseStream.Length)
+            {
+                temp_elem = binary_reader.ReadInt32();
+                counter++;
+                if (temp_elem <= prevois_elem) { sum = 0; counter = 0; }
+                sum += temp_elem;
+                prevois_elem = temp_elem;
+                if (sum > max_sum && counter > 1) max_sum = sum;
+            }
+            if (max_sum == -65535)
+                Console.WriteLine("Growing sequence not found");
+            else
+                Console.WriteLine("Max sum=" + max_sum);
+            binary_reader.Close();
         }
 
         static void Main(string[] args)
         {
+            BinaryWriter bw = null;
+            BinaryReader binary_reader = null;
             try
             {
                 const string path = @"C:\Users\user\Desktop\";
-                CreateFile();
-                int counter = 0;
-                int sum = 0;
-                int max_sum = -65535;
-                int temp_elem;
-                int prevois_elem = -65535;
+                
+                CreateFile(ref bw);
+                
                 string file_name;
                 do
                 {
                     file_name = path + GetFileName();
                 } while (!File.Exists(file_name));
+                JustDoIt(ref binary_reader, file_name);
 
-
-                BinaryReader binary_reader = new BinaryReader(File.Open(file_name, FileMode.Open));
-                try
-                {
-                    while (binary_reader.BaseStream.Position != binary_reader.BaseStream.Length)
-                    {
-                        temp_elem = binary_reader.ReadInt32();
-                        counter++;
-                        if (temp_elem <= prevois_elem) { sum = 0; counter = 0; }
-                        sum += temp_elem;
-                        prevois_elem = temp_elem;
-                        if (sum > max_sum && counter > 1) max_sum = sum;
-                    }
-                    if (max_sum == -65535)
-                        Console.WriteLine("Growing sequence not found");
-                    else
-                        Console.WriteLine("Max sum=" + max_sum);
-                    binary_reader.Close();
-                }
-                catch (Exception e) { Console.WriteLine(e.Message); }
-                finally { bianry_reader.Close(); }
             }
             catch (FormatException fe)
             {
@@ -129,6 +112,11 @@ namespace Lab10Part1
                 Console.BackgroundColor = ConsoleColor.Red;
                 Console.WriteLine("FATAL ERROR: " + err.Message);
                 Console.ResetColor();
+            }
+            finally
+            {
+                binary_reader.Close();
+                bw.Close();
             }
         }
     }
