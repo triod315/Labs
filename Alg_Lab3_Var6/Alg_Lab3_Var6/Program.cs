@@ -30,16 +30,16 @@ namespace Alg_Lab3_Var6
         static double Bisection(double a,double b,double e,out double eps)
         {
             double x;
-            int n = 0;
-            double a_true = a;
-            double b_true = b;
+            int k = 0;
             do
             {
                 x = (a + b) / 2;
                 if (func(a) * func(x) < 0) b = x;
                 if (func(b) * func(x) < 0) a = x;
+                k++;
             } while (Math.Abs(b-a)>e && func(x) != 0);
             eps = Math.Abs(b - a);
+            Console.WriteLine("k="+ k);
             return x;
         }
         static void Main(string[] args)
