@@ -26,9 +26,11 @@ namespace Alg_lab4_Var6
             double sum;
             for (int i = 0; i < matrix.GetLength(0); i++)
             {
-                sum=0;
-                for (int j = 0; j < matrix.GetLength(0); j++) sum += Math.Abs(matrix[i, j]);
-                if (sum >= 1) return false;
+                sum = 0;
+                for (int j = 0; j < matrix.GetLength(0); j++)
+                    if (i!=j)
+                        sum += Math.Abs(matrix[i, j]);
+                if (Math.Abs(matrix[i, i]) < sum) return false;
             }
             return true;
         }
@@ -42,40 +44,29 @@ namespace Alg_lab4_Var6
         /// <returns>масив коренів рівняння</returns>
         static double[] Find_Solution(double[,] A, double[] B,double e)
         {
-            double[,] a = new double[B.Length, B.Length];
-            double[] b = new double[B.Length];
-            for (int i = 0; i < B.Length; i++)
-            {
-                for (int j = 0; j < B.Length; j++)
-                {
-                    a[i, j] = (i == j) ? 0 : (-A[i, j] / A[i, i]);
-                }
-                b[i] = B[i] / A[i, i];
-            }
-
-            if (!ChekMatrix(a))
+            if (!ChekMatrix(A))
             {
                 Console.WriteLine("I'm sorry, I'm too stupid to solve this");
                 return null;
             }
-
-            double[] x = new double[b.Length];
-            double[] x0 = new double[b.Length];
-            Array.Copy(b, x0, b.Length);
+            double[] x = new double[B.Length];
+            double[] x0 = new double[B.Length];
+            for (int i = 0; i < B.Length; i++)
+                x0[i] = B[i] / A[i, i];
             int k = 0;//кількість ітерацій
             double max=0;//максимальне по модулю значення різниці k-го та k+1-го наближень
             do
             {
-                for (int i = 0; i < b.Length; i++)
+                for (int i = 0; i < B.Length; i++)
                 {
                     max = 0;
                     x[i] = 0;
-                    for (int j = 0; j < b.Length; j++)
+                    for (int j = 0; j < B.Length; j++)
                     {
-                        x[i] += a[i, j] * x0[j];
+                        if (i!=j)
+                            x[i] +=A[i, j] * x0[j];
                     }
-                    x[i] += b[i];
-
+                    x[i] = (-x[i] + B[i]) / A[i, i]; 
                     if (Math.Abs(x[i] - x0[i]) > max) max = Math.Abs(x[i] - x0[i]);
                     x0[i] = x[i];
                 }
@@ -88,7 +79,7 @@ namespace Alg_lab4_Var6
 
         static void Main(string[] args)
         {
-            double[,] A = {
+            double[,] A =   {                               
                             {0.53, 0.011,0.035,-0.09},
                             {-0.073, 0.58,0,0 },
                             {0.154, -0.12,0.42,-0.03},
