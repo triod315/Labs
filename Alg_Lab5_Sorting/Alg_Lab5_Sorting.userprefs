@@ -1,0 +1,12 @@
+﻿<Properties StartupItem="Alg_Lab5_Sorting/Alg_Lab5_Sorting.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Alg_Lab5_Sorting/Program.cs">
+    <Files>
+      <File FileName="Alg_Lab5_Sorting/Program.cs" Line="97" Column="48" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

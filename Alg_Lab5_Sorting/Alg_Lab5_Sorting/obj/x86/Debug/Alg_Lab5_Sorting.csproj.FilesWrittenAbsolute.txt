@@ -1,0 +1,5 @@
+/home/triod315/Desktop/alg_labs/Alg_Lab5_Sorting/Alg_Lab5_Sorting/obj/x86/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/home/triod315/Desktop/alg_labs/Alg_Lab5_Sorting/Alg_Lab5_Sorting/bin/Debug/Alg_Lab5_Sorting.exe.mdb
+/home/triod315/Desktop/alg_labs/Alg_Lab5_Sorting/Alg_Lab5_Sorting/bin/Debug/Alg_Lab5_Sorting.exe
+/home/triod315/Desktop/alg_labs/Alg_Lab5_Sorting/Alg_Lab5_Sorting/obj/x86/Debug/Alg_Lab5_Sorting.exe
+/home/triod315/Desktop/alg_labs/Alg_Lab5_Sorting/Alg_Lab5_Sorting/obj/x86/Debug/Alg_Lab5_Sorting.exe.mdb
