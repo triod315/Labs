@@ -1,0 +1,5 @@
+/home/triod315/Desktop/proga_labs/Lab12/Lab12/obj/x86/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/home/triod315/Desktop/proga_labs/Lab12/Lab12/bin/Debug/Lab12.exe.mdb
+/home/triod315/Desktop/proga_labs/Lab12/Lab12/bin/Debug/Lab12.exe
+/home/triod315/Desktop/proga_labs/Lab12/Lab12/obj/x86/Debug/Lab12.exe
+/home/triod315/Desktop/proga_labs/Lab12/Lab12/obj/x86/Debug/Lab12.exe.mdb
