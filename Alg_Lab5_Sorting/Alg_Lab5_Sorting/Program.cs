@@ -4,7 +4,6 @@ namespace Alg_Lab5_Sorting
 {
     class MainClass
     {
-
         /// <summary>
         /// Swap the specified a and b.
         /// </summary>
@@ -19,17 +18,9 @@ namespace Alg_Lab5_Sorting
             b = temp;
         }
 
-        /// <summary>
-        /// Quick sorting of array
-        /// </summary>
-        /// <param name="a">array</param>
-        /// <param name="p">begin of array</param>
-        /// <param name="q">end of array</param>
-        public static void QuickSort(double[] a,int p,int q)
+        public static int Partition(double[] a,int p,int q)
         {
-            if (p >= q)
-                return;
-            double x = a[p];
+            double x = a[p];//опорний елемент
             int i = p - 1;
             int j = q + 1;
             while (i < j)
@@ -43,12 +34,30 @@ namespace Alg_Lab5_Sorting
                     j--;
                 } while(a[j] > x);
                 if (i < j)
-                    Swap<double>(ref a[i],ref a[j]);
+                {
+                    //Console.WriteLine($"{i}<->{j}");
+                    Swap<double>(ref a[i], ref a[j]);
+                    PrintArray(a);
+                }
             }
-            PrintArray(a);
-            QuickSort(a, p, j);
-            QuickSort(a,j+1,q);
+            return j;
         }
+
+        /// <summary>
+        /// Quick sorting of array
+        /// </summary>
+        /// <param name="a">array</param>
+        /// <param name="p">begin of array</param>
+        /// <param name="q">end of array</param>
+        public static void QuickSort(double[] a,int p,int q)
+        {
+            if (p < q)
+            {
+                int r = Partition(a, p, q);
+                QuickSort(a, p, r);
+                QuickSort(a, r + 1, q);
+            }
+        }           
 
         /// <summary>
         /// Prints the array.
@@ -84,13 +93,15 @@ namespace Alg_Lab5_Sorting
         /// <param name="a">array for sorting</param>
         public static void ShellSort(double[] a)
         {
-            for (int d = a.Length/2; d>=1; d/=2)
+            int d;
+            for (int k=(int)Math.Log(a.Length+1,2); k>=0; k--)
             {
+                d = (int)Math.Pow(2, k) -1;
                 for (int i = d; i < a.Length; i++)
                     for (int j = i; j >= d && a[j - d] > a[j]; j -= d)
                     {
-                        Swap<double>(ref a[j], ref a[j - d]);
                         PrintArray(a);
+                        Swap<double>(ref a[j], ref a[j - d]);
                     }
             }
         }
@@ -117,31 +128,31 @@ namespace Alg_Lab5_Sorting
             return c;
         }
             
-
         public static void Main (string[] args)
         {
-            
-
             Console.WriteLine("A");
             double[] a = GetArrayFromConsole();
             Console.WriteLine("B");
             double[] b = GetArrayFromConsole();
             double[] c = CreateNewArray(a, b);
             bool is_uprising = ((a.Length > 1 && a[a.Length - 1] > a[0]) || (b.Length > 1 && b[b.Length - 1] > b[0]));
+            double[] c_clone=new double[c.Length];
+            Array.Copy(c, c_clone, c.Length);
 
-            Console.WriteLine("Quick ");
+            Console.WriteLine("Quick sort");
             QuickSort (c,0,c.Length-1);
-
+            Console.WriteLine("---------------------");
             Console.WriteLine("Shell sort");
-            ShellSort(c);
-            PrintArray(c);
+            ShellSort(c_clone);
+            Console.WriteLine("---------------------");
+
             if (is_uprising)
+            {
                 ChangeArr(c);
-            
+                ChangeArr(c_clone);
+            }
 
+            Console.WriteLine("-------------\nQuick sort result");
             PrintArray(c);
-
-
-        }
-    }
-}
+            Console.WriteLine("-------------\nShell sort result");
+            PrintArray(c_clone);
