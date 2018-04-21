@@ -1,0 +1,5 @@
+/home/triod315/Desktop/alg_labs/Alg_Lab6_Binary_Search/Alg_Lab6_Binary_Search/obj/x86/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/home/triod315/Desktop/alg_labs/Alg_Lab6_Binary_Search/Alg_Lab6_Binary_Search/bin/Debug/Alg_Lab6_Binary_Search.exe.mdb
+/home/triod315/Desktop/alg_labs/Alg_Lab6_Binary_Search/Alg_Lab6_Binary_Search/bin/Debug/Alg_Lab6_Binary_Search.exe
+/home/triod315/Desktop/alg_labs/Alg_Lab6_Binary_Search/Alg_Lab6_Binary_Search/obj/x86/Debug/Alg_Lab6_Binary_Search.exe
+/home/triod315/Desktop/alg_labs/Alg_Lab6_Binary_Search/Alg_Lab6_Binary_Search/obj/x86/Debug/Alg_Lab6_Binary_Search.exe.mdb
