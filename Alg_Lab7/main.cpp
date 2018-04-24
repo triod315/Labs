@@ -28,8 +28,8 @@ vector<int> BFS(vector<vector<double> > &matrix, int start_pos, int end_pos)
     queue<int> q;//que for cheked elements
     q.push(start_pos);
     vector<bool> used(matrix.size());//vector of used points
-    vector<int> p(matrix.size());//way from start point to end point
-    vector<double> dist(matrix.size());//distanse from start point to end point
+    vector<int> p(matrix.size());
+    vector<double> dist(matrix.size());
 
     used[start_pos]=true;
     p[start_pos]=-1;
