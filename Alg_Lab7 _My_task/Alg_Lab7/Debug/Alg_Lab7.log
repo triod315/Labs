@@ -1,0 +1,4 @@
+﻿  Alg_Lab7.cpp
+c:\users\user\source\repos\alg_lab7\alg_lab7\alg_lab7.cpp(26): warning C4018: '<': signed/unsigned mismatch
+c:\users\user\source\repos\alg_lab7\alg_lab7\alg_lab7.cpp(36): warning C4018: '<': signed/unsigned mismatch
+  Alg_Lab7.vcxproj -> c:\Users\user\source\repos\Alg_Lab7\Debug\Alg_Lab7.exe
