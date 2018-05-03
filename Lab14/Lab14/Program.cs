@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,8 +16,6 @@ namespace Lab14
         char third_char;
         char fourth_char;
         char fifth_char;
-
-        
 
         public RestrictedCharTuple(char char1 = '#', char char2 = '#', char char3 = '#', char char4 = '#', char char5 = '#')
         {
@@ -74,8 +72,9 @@ namespace Lab14
         }
 
 
-        public override string ToString() => $"Tuple: ({first_char}, {second_char}, {third_char}, {fourth_char}, {first_char})";
+        public override string ToString() => $"({first_char}, {second_char}, {third_char}, {fourth_char}, {fifth_char})";
 
+        public string FieldsToString() => $"{first_char}{second_char}{third_char}{fourth_char}{fifth_char}";
 
         private static int CompareTwoChars(char char1, char char2)
         {
@@ -84,7 +83,7 @@ namespace Lab14
             return 0;
         }
 
-        static int CompareByFirst(RestrictedCharTuple struct1, RestrictedCharTuple struct2) => CompareTwoChars(struct1.first_char, struct2.first_char);
+        public static int CompareByFirst(RestrictedCharTuple struct1, RestrictedCharTuple struct2) => CompareTwoChars(struct1.first_char, struct2.first_char);
 
         static int CompareBySecond(RestrictedCharTuple struct1, RestrictedCharTuple struct2) => CompareTwoChars(struct1.second_char, struct2.second_char);
 
@@ -101,14 +100,116 @@ namespace Lab14
             return 0;
         }
 
+        
+
     }
 
+    class RestrictedCharTupleCollection
+    {
+        private RestrictedCharTuple[] tuples;
+
+        public int Length;
+
+        public RestrictedCharTupleCollection(int n)
+        {
+            if (n < 0) throw new Exception("count of elements can't be below 0");
+            tuples = new RestrictedCharTuple[n];
+
+        }
+
+        public RestrictedCharTuple this[int index]
+        {
+            get
+            {
+                if (index > 0 && index < tuples.Length) return tuples[index];
+                else throw new Exception("Index out of range");
+            }
+            set
+            {
+                if (index > 0 && index < tuples.Length) tuples[index] = value;
+                else throw new Exception("Index out of range");
+            }
+        }
+
+        public void AddElemnt(RestrictedCharTuple tuple)
+        {
+            int i = 0;
+
+            while (tuples[i].FieldsToString() != "#####" && i < tuples.Length) i++;
+
+            if (i != tuples.Length - 1) tuples[i] = tuple;
+
+        }
+
+        public void RemoveElement(int index)
+        {
+            if (index > tuples.Length || index < 0) throw new Exception("index out of range");
+
+            for (int i = index; i < tuples.Length - 1; i++)
+                tuples[i] = tuples[i + 1];
+
+        }
+
+        public void PrintToConsole()
+        {
+            for (int i = 0; i < tuples.Length; i++)
+                Console.WriteLine($"Tuple {i}: {tuples[i].ToString()}");
+        }
+
+        public delegate int CompareMethod(RestrictedCharTuple rct1, RestrictedCharTuple rct2);
+
+        private static CompareMethod compareMethod=RestrictedCharTuple.CompareByFirst;
+
+        public static CompareMethod Compare_Method { get => compareMethod; set => compareMethod = value; }
+
+
+        private static void Swap<T>(ref T a, ref T b)
+        {
+            T temp;
+            temp = a;
+            a = b;
+            b = temp;
+        }
+
+        private static int Partition(RestrictedCharTuple[] a, int p, int q)
+        {
+            RestrictedCharTuple x = a[p];//опорний елемент
+            int i = p;
+            int j = q;
+            while (i < j)
+            {
+                while (compareMethod(a[i],x)<0 /*a[i] < x*/) i++;
+                while (compareMethod(a[j],x)>0/*a[j] > x*/) j--;
+                if (i < j)
+                {
+                    //Console.WriteLine($"{i}<->{j}");
+                    Swap<RestrictedCharTuple>(ref a[i], ref a[j]);
+                    i++; j--;
+                }
+            }
+            return j;
+        }
+
+        /// <summary>
+        /// Quick sorting of array
+        /// </summary>
+        /// <param name="a">array</param>
+        /// <param name="p">begin of array</param>
+        /// <param name="q">end of array</param>
+        private static void QuickSort(RestrictedCharTuple[] a, int p, int q)
+        {
+            if (p < q)
+            {
+                int r = Partition(a, p, q);
+                QuickSort(a, p, r);
+                QuickSort(a, r + 1, q);
+            }
+        }
+
+    }
 
 class Program
     {
-
-       
-
         static void Main(string[] args)
         {
         }
