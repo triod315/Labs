@@ -9,32 +9,46 @@ using static System.Tuple;
 namespace Lab14
 {
 
+    delegate int CompareMethod(RestrictedCharTuple rct1, RestrictedCharTuple rct2);
+
     struct RestrictedCharTuple
     {
-        char first_char;
-        char second_char;
-        char third_char;
-        char fourth_char;
-        char fifth_char;
 
-        public RestrictedCharTuple(char char1 = '#', char char2 = '#', char char3 = '#', char char4 = '#', char char5 = '#')
+        private int StringNumberToInt(string number)
         {
-            first_char = char1;
-            second_char = char2;
-            third_char = char3;
-            fourth_char = char4;
-            fifth_char = char5;
+            switch (number)
+            {
+                case "first":return 0;
+                case "second": return 1;
+                case "third": return 2;
+                case "fourth": return 3;
+                case "fifth": return 4;
+                default: throw new Exception("Invalid number in string");
+            }
         }
 
-        public static char[] Allowed_chars= { 'a','b','c','d','e','1','2','3' };
+        private char[] fields;
 
-        static RestrictedCharTuple Create(char first_char='#', char second_char = '#', char third_char = '#', char fourth_char = '#', char fifth_char = '#')
+        public char this[string index]
+        {
+            get => fields[StringNumberToInt(index)];
+            set => fields[StringNumberToInt(index)] = value;
+        }
+        
+        public RestrictedCharTuple(char char1 = '#', char char2 = '#', char char3 = '#', char char4 = '#', char char5 = '#')
+        {
+            fields = new char[] { char1,char2,char3,char4,char5 };
+        }
+
+        public static char[] Allowed_chars = { 'a', 'b', 'c', 'd', 'e', '1', '2', '3' };
+
+        public static RestrictedCharTuple Create(char first_char = '#', char second_char = '#', char third_char = '#', char fourth_char = '#', char fifth_char = '#')
         {
             RestrictedCharTuple r = new RestrictedCharTuple(first_char, second_char, third_char, fourth_char, fifth_char);
             return r;
         }
 
-        static RestrictedCharTuple Create(char[] field,string command="")
+        public static RestrictedCharTuple Create(char[] field, string command = "")
         {
             if (field.Length > 5) throw new Exception("Count of fields must be betwen 0 and 5");
 
@@ -43,38 +57,26 @@ namespace Lab14
             if (command == "SORT")
                 Array.Sort(field);
 
-            for (int i = 0; i < field.Length; i++)
-                if (!Allowed_chars.Contains(field[i])) throw new Exception("Restricted char");
+            RestrictedCharTuple result = new RestrictedCharTuple();
+            result.fields = new char[5];
 
-            switch (field.Length)
+
+            for (int i = 0; i < field.Length; i++)
             {
-                case 1:
-                    return new RestrictedCharTuple(field[0]);
-                case 2:
-                    return new RestrictedCharTuple(field[0],field[1]);
-                case 3:
-                    return new RestrictedCharTuple(field[0], field[1],field[2]);
-                case 4:
-                    return new RestrictedCharTuple(field[0], field[1], field[2],field[3]);
-                case 5:
-                    return new RestrictedCharTuple(field[0], field[1], field[2], field[3],field[4]);
-                default:
-                    {
-                        throw new Exception("Restricted count of fields(empty array field or length of fields bigger than 5)");
-                    }
+                //if (!Allowed_chars.Contains(field[i])) throw new Exception("Restricted char");
+                result.fields[i] = field[i];
             }
 
+            for (int i = field.Length; i < result.fields.Length; i++)
+                result.fields[i] = '#';
+
+            return result;
+            
+
         }
 
-        static RestrictedCharTuple Create(RestrictedCharTuple structure)
-        {
-            return structure;
-        }
+        public static RestrictedCharTuple Create(RestrictedCharTuple structure) => Create(structure.fields);
 
-
-        public override string ToString() => $"({first_char}, {second_char}, {third_char}, {fourth_char}, {fifth_char})";
-
-        public string FieldsToString() => $"{first_char}{second_char}{third_char}{fourth_char}{fifth_char}";
 
         private static int CompareTwoChars(char char1, char char2)
         {
@@ -83,24 +85,38 @@ namespace Lab14
             return 0;
         }
 
-        public static int CompareByFirst(RestrictedCharTuple struct1, RestrictedCharTuple struct2) => CompareTwoChars(struct1.first_char, struct2.first_char);
+        public static CompareMethod CompareByFirst=(RestrictedCharTuple struct1, RestrictedCharTuple struct2) => CompareTwoChars(struct1.fields[0], struct2.fields[0]);
 
-        static int CompareBySecond(RestrictedCharTuple struct1, RestrictedCharTuple struct2) => CompareTwoChars(struct1.second_char, struct2.second_char);
+        public static CompareMethod CompareBySecond=(RestrictedCharTuple struct1, RestrictedCharTuple struct2) => CompareTwoChars(struct1.fields[1], struct2.fields[1]);
 
-        static int CompareByThird(RestrictedCharTuple struct1, RestrictedCharTuple struct2) => CompareTwoChars(struct1.third_char, struct2.third_char);
+        public static CompareMethod CompareByThird=(RestrictedCharTuple struct1, RestrictedCharTuple struct2) => CompareTwoChars(struct1.fields[2], struct2.fields[2]);
 
-        static int CompareByFourth(RestrictedCharTuple struct1, RestrictedCharTuple struct2) => CompareTwoChars(struct1.fourth_char, struct2.fourth_char);
+        public static CompareMethod CompareByFourth=(RestrictedCharTuple struct1, RestrictedCharTuple struct2) => CompareTwoChars(struct1.fields[3], struct2.fields[3]);
 
-        static int CompareByFifth(RestrictedCharTuple struct1, RestrictedCharTuple struct2) => CompareTwoChars(struct1.fifth_char, struct2.fifth_char);
+        public static CompareMethod CompareByFifth=(RestrictedCharTuple struct1, RestrictedCharTuple struct2) => CompareTwoChars(struct1.fields[4], struct2.fields[4]);
 
-        static int CompareByTh(RestrictedCharTuple struct1, RestrictedCharTuple struct2)
+        public void ChangeCode(int x)
         {
-            if (struct1.second_char > struct2.second_char) return 1;
-            if (struct1.second_char < struct2.second_char) return -1;
-            return 0;
+            for (int i = 0; i < fields.Length; i++) fields[i] += (char)x;
         }
 
-        
+        public string InsertString(string str)
+        {
+            string s="";
+            for (int i = 0; i < fields.Length-1; i++) s += fields[i] + str;
+            return s + fields[fields.Length - 1];
+        }
+
+        public override string ToString()
+        {
+            string s = "(";
+
+            for (int i = 0; i < fields.Length - 1; i++) s += fields[i] + ",";
+
+            return s + fields[fields.Length - 1] + ")";
+        }
+
+        public string FieldsToString() => new string(fields);
 
     }
 
@@ -108,25 +124,24 @@ namespace Lab14
     {
         private RestrictedCharTuple[] tuples;
 
-        public int Length;
+        private int length;
+        public int Length => length;
 
         public RestrictedCharTupleCollection(int n)
         {
             if (n < 0) throw new Exception("count of elements can't be below 0");
             tuples = new RestrictedCharTuple[n];
 
+            for (int i = 0; i < n; i++)
+                tuples[i] = RestrictedCharTuple.Create();
+            length = 0;
         }
 
-        public RestrictedCharTuple this[int index]
+        public ref RestrictedCharTuple this[int index]
         {
             get
             {
-                if (index > 0 && index < tuples.Length) return tuples[index];
-                else throw new Exception("Index out of range");
-            }
-            set
-            {
-                if (index > 0 && index < tuples.Length) tuples[index] = value;
+                if (index > 0 && index < tuples.Length)  return ref tuples[index];
                 else throw new Exception("Index out of range");
             }
         }
@@ -134,11 +149,11 @@ namespace Lab14
         public void AddElemnt(RestrictedCharTuple tuple)
         {
             int i = 0;
+            
+            while (tuples[i].FieldsToString() != "#####" && i < tuples.Length-1) i++;
 
-            while (tuples[i].FieldsToString() != "#####" && i < tuples.Length) i++;
-
-            if (i != tuples.Length - 1) tuples[i] = tuple;
-
+            if (i != tuples.Length) tuples[i] = tuple;
+            length++;
         }
 
         public void RemoveElement(int index)
@@ -148,20 +163,21 @@ namespace Lab14
             for (int i = index; i < tuples.Length - 1; i++)
                 tuples[i] = tuples[i + 1];
 
+            length--;
+
         }
 
         public void PrintToConsole()
         {
-            for (int i = 0; i < tuples.Length; i++)
+            for (int i = 0; i < length; i++)
                 Console.WriteLine($"Tuple {i}: {tuples[i].ToString()}");
         }
 
-        public delegate int CompareMethod(RestrictedCharTuple rct1, RestrictedCharTuple rct2);
 
-        private static CompareMethod compareMethod=RestrictedCharTuple.CompareByFirst;
+        private static CompareMethod compareMethod = RestrictedCharTuple.CompareByFirst;
 
         public static CompareMethod Compare_Method { get => compareMethod; set => compareMethod = value; }
-
+       
 
         private static void Swap<T>(ref T a, ref T b)
         {
@@ -171,19 +187,19 @@ namespace Lab14
             b = temp;
         }
 
-        private static int Partition(RestrictedCharTuple[] a, int p, int q)
+        private int Partition(int p, int q)
         {
-            RestrictedCharTuple x = a[p];//опорний елемент
+            RestrictedCharTuple x = tuples[p];//опорний елемент
             int i = p;
             int j = q;
             while (i < j)
             {
-                while (compareMethod(a[i],x)<0 /*a[i] < x*/) i++;
-                while (compareMethod(a[j],x)>0/*a[j] > x*/) j--;
+                while (compareMethod(tuples[i],x)<0 /*a[i] < x*/) i++;
+                while (compareMethod(tuples[j],x)>0/*a[j] > x*/) j--;
                 if (i < j)
                 {
                     //Console.WriteLine($"{i}<->{j}");
-                    Swap<RestrictedCharTuple>(ref a[i], ref a[j]);
+                    Swap(ref tuples[i], ref tuples[j]);
                     i++; j--;
                 }
             }
@@ -193,25 +209,57 @@ namespace Lab14
         /// <summary>
         /// Quick sorting of array
         /// </summary>
-        /// <param name="a">array</param>
+        /// <param name="tuples">array</param>
         /// <param name="p">begin of array</param>
         /// <param name="q">end of array</param>
-        private static void QuickSort(RestrictedCharTuple[] a, int p, int q)
+        public void QuickSort(int p, int q)
         {
             if (p < q)
             {
-                int r = Partition(a, p, q);
-                QuickSort(a, p, r);
-                QuickSort(a, r + 1, q);
+                int r = Partition(p, q);
+                QuickSort(p, r);
+                QuickSort(r + 1, q);
             }
         }
 
     }
 
-class Program
+    class Program
     {
         static void Main(string[] args)
         {
+            char[] tup1 = { 'e', 'd', 'c', 'b', 'a' };
+            RestrictedCharTuple tuple1 = RestrictedCharTuple.Create(tup1);
+            tuple1.ChangeCode(1);
+            Console.WriteLine(tuple1.ToString());
+            char[] tup2 = { 'a', 'b', 'c', 'd', 'e' };
+            RestrictedCharTuple tuple2 = RestrictedCharTuple.Create(tup2);
+            char[] tup3 = { 'k', 'l', 'm', 'a', 'o' };
+            RestrictedCharTuple tuple3 = RestrictedCharTuple.Create(tup3);
+
+            RestrictedCharTupleCollection tupleCollection = new RestrictedCharTupleCollection(3);
+            tupleCollection.AddElemnt(tuple1);
+            tupleCollection.AddElemnt(tuple2);
+            tupleCollection.AddElemnt(tuple3);
+
+            Console.WriteLine("tuple with str " + tuple1.InsertString("_"));
+
+            Console.WriteLine("--------------");
+            tupleCollection.PrintToConsole();
+
+            Console.WriteLine("--------------");
+
+            RestrictedCharTupleCollection.Compare_Method = RestrictedCharTuple.CompareByFourth;
+            tupleCollection.QuickSort(0, tupleCollection.Length - 1);
+
+            tupleCollection.PrintToConsole();
+
+            Console.WriteLine("--------------");
+
+            tupleCollection.RemoveElement(1);
+            tupleCollection.PrintToConsole();
+
+
         }
     }
 }
