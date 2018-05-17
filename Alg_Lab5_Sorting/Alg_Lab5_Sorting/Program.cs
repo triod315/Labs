@@ -24,18 +24,17 @@ namespace ALab5
 
         public static int Partition(double[] a, int p, int q)
         {
-            double x = a[p];//опорний елемент
-            int i = p;
-            int j = q;
+            double x = a[(p+q)/2];//опорний елемент
+            int i = p-1;
+            int j = q+1;
             while (i < j)
             {
-                while (a[i] < x) i++;
-                while (a[j] > x) j--;
+                do {i++;} while (a[i] < x) ;
+                do {j--;} while (a[j] > x) ;
                 if (i < j)
                 {
                     //Console.WriteLine($"{i}<->{j}");
                     Swap<double>(ref a[i], ref a[j]);
-                    i++; j--;
                     PrintArray(a);
                 }
             }
