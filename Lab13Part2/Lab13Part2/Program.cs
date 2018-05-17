@@ -30,6 +30,13 @@ namespace Lab13Part2
         }
 
         public void Eat(double Food_calories) => weight += Food_calories;
+
+        public override bool Equals(object obj)
+        {
+            Animal a = (Animal)obj;
+            return (a.name == name && a.weight == weight);
+        }
+        
     }
 
     abstract class Mammal : Animal
