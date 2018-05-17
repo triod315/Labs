@@ -16,5 +16,18 @@ namespace Lab15
         {
             InitializeComponent();
         }
+
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/triod315/Labs/tree/master/Lab15");
+        }
+
+        private void About_form_Load(object sender, EventArgs e)
+        {
+            productNameLabel.Text += Application.ProductName;
+            productVersionLabel.Text += Application.ProductVersion;
+            productDeveloperLabel.Text += Application.CompanyName;
+        }
     }
 }
