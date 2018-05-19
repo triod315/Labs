@@ -157,6 +157,10 @@ public:
 	}
 
 
+
+
+
+
 };
 
 
@@ -175,7 +179,6 @@ int main()
 		c = rand() % 100;
 		cout << c << " added";
 		tree->AddElement(c);
-
 		system("pause");
 		system("cls");
 

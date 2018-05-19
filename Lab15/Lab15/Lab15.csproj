@@ -75,6 +75,12 @@
     <Compile Include="About_form.Designer.cs">
       <DependentUpon>About_form.cs</DependentUpon>
     </Compile>
+    <Compile Include="FieldForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FieldForm.Designer.cs">
+      <DependentUpon>FieldForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -91,6 +97,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="About_form.resx">
       <DependentUpon>About_form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FieldForm.resx">
+      <DependentUpon>FieldForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>

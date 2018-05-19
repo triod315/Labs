@@ -16,7 +16,7 @@ namespace Lab15
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Text_editor());
+            Application.Run(new MainWindow());
         }
     }
 }

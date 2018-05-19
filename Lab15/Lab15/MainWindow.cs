@@ -11,29 +11,41 @@ using System.IO;
 
 namespace Lab15
 {
-    public partial class Text_editor : Form
+    public partial class MainWindow : Form
     {
-        public Text_editor()
+        public MainWindow()
         {
             InitializeComponent();
         }
 
-        async private void saveFileAsTextToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void SaveTextToFileAsync(string text, SaveFileDialog saveFileDialog)
+        {            
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                using (StreamWriter streamWriter = new StreamWriter(saveFileDialog.FileName))
+                {
+                    await streamWriter.WriteAsync(text);
+                }
+            }
+        }
+
+        /// <summary>
+        /// save text to file *.txt
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SaveFileAsTextToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            FieldForm activeForm = (FieldForm)ActiveMdiChild;
             SaveFileDialog saveFileDialog = new SaveFileDialog
             {
                 Filter = "txt files (*.txt)|*.txt",
                 FilterIndex = 1,
                 RestoreDirectory = true
             };
-
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                using (StreamWriter streamWriter = new StreamWriter(saveFileDialog.FileName))
-                {
-                    await streamWriter.WriteAsync(richTextBox1.Text);
-                }
-            }
+            SaveTextToFileAsync(activeForm.richTextBox1.Text, saveFileDialog);
+            
+            activeForm.Text = (saveFileDialog.FileName!="") ? saveFileDialog.FileName:activeForm.Text;
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e) => Application.Exit();
@@ -44,8 +56,12 @@ namespace Lab15
             saveFileAsHtmlToolStripMenuItem.Enabled = true;
         }
 
-
-        async private void loadTextToolStripMenuItem_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Load text from file 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void LoadTextToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
@@ -54,17 +70,26 @@ namespace Lab15
                 RestoreDirectory = true
             };
             if (openFileDialog.ShowDialog() == DialogResult.OK)
-            { 
+            {
+                FieldForm activeForm = new FieldForm();
+                activeForm.MdiParent = this;
                 using (StreamReader sr = new StreamReader(openFileDialog.FileName))
                 {
-                    richTextBox1.Text = await sr.ReadToEndAsync();
+                    activeForm.richTextBox1.Text = await sr.ReadToEndAsync();
                 }
-                this.Text = openFileDialog.SafeFileName +" - "+ this.Text;
+                activeForm.Text = openFileDialog.SafeFileName;
+                activeForm.Show();
             }
         }
 
-        async private void saveFileAsHtmlToolStripMenuItem_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Save file in html format
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SaveFileAsHtmlToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            FieldForm activeForm = (FieldForm)ActiveMdiChild;
             SaveFileDialog saveFileDialog = new SaveFileDialog
             {
                 Filter = "html file(*.html)|*.html",
@@ -72,22 +97,15 @@ namespace Lab15
                 RestoreDirectory = true
             };
 
-            string tmp_var = richTextBox1.Text;
+            string tmp_var = activeForm.richTextBox1.Text; //html code of text in richTextBox1
             tmp_var=tmp_var.Replace("&", "&amp");
             tmp_var = tmp_var.Replace(" ", "&nbsp");
             tmp_var = tmp_var.Replace("<", "&lt");
             tmp_var = tmp_var.Replace(">", "&gt");
             tmp_var = tmp_var.Replace("\n", "<br />");
             tmp_var = tmp_var.Replace("\"","&quot");
-        
-            richTextBox1.Text = tmp_var;
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                using (StreamWriter sw = new StreamWriter(saveFileDialog.FileName))
-                {
-                    await sw.WriteAsync(tmp_var);
-                }
-            }
+
+            SaveTextToFileAsync(tmp_var, saveFileDialog);
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -105,7 +123,42 @@ namespace Lab15
 
         private void newFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            richTextBox1.Text = "";
+            FieldForm fieldForm = new FieldForm();           
+            fieldForm.MdiParent = this;
+            fieldForm.Show();
+            fieldForm.Text = "unnamed file";
+        }
+
+        private void Text_editor_MdiChildActivate(object sender, EventArgs e)
+        {
+            Form activeFieldForm = ActiveMdiChild;
+            if (activeFieldForm != null)
+            {
+                saveFileAsTextToolStripMenuItem.Enabled = true;
+                saveFileAsHtmlToolStripMenuItem.Enabled = true;
+            }
+            else
+            {
+                saveFileAsTextToolStripMenuItem.Enabled = false;
+                saveFileAsHtmlToolStripMenuItem.Enabled = false;
+            }
+        }
+
+        private void viewHelpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            HelpForm helpForm = new HelpForm();
+            helpForm.Show();
+        }
+
+        private void aboutToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            About_form about_Form = new About_form();
+            about_Form.Show();
+        }
+
+        private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+         
         }
     }
 }
