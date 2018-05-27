@@ -117,10 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="mainMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>49</value>
-  </metadata>
+  <data name="infa.Text" xml:space="preserve">
+    <value>Press "Print" to paint level+1 level dragon
+Press "+" to repaint dragon with level=level+1
+Press "-" to repaint dragon with level=level-1
+
+Press "File-&gt;Exit" to close application
+Press "Help-&gt;Help" to open this window
+Press "Help-&gt;About" to get information about this program
+</value>
+  </data>
 </root>

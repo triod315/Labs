@@ -43,18 +43,15 @@ namespace Lab15
                 FilterIndex = 1,
                 RestoreDirectory = true
             };
-            SaveTextToFileAsync(activeForm.richTextBox1.Text, saveFileDialog);
+            SaveTextToFileAsync(activeForm.textField.Text, saveFileDialog);
             
             activeForm.Text = (saveFileDialog.FileName!="") ? saveFileDialog.FileName:activeForm.Text;
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e) => Application.Exit();
+        private void ExitToolStripMenuItem_Click(object sender, EventArgs e) => Application.Exit();
 
-        private void richTextBox1_TextChanged(object sender, EventArgs e)
-        {
-            saveFileAsTextToolStripMenuItem.Enabled = true;
-            saveFileAsHtmlToolStripMenuItem.Enabled = true;
-        }
+        ///
+
 
         /// <summary>
         /// Load text from file 
@@ -75,10 +72,11 @@ namespace Lab15
                 activeForm.MdiParent = this;
                 using (StreamReader sr = new StreamReader(openFileDialog.FileName))
                 {
-                    activeForm.richTextBox1.Text = await sr.ReadToEndAsync();
+                    activeForm.textField.Text = await sr.ReadToEndAsync();
                 }
                 activeForm.Text = openFileDialog.SafeFileName;
                 activeForm.Show();
+                
             }
         }
 
@@ -97,35 +95,38 @@ namespace Lab15
                 RestoreDirectory = true
             };
 
-            string tmp_var = activeForm.richTextBox1.Text; //html code of text in richTextBox1
-            tmp_var=tmp_var.Replace("&", "&amp");
-            tmp_var = tmp_var.Replace(" ", "&nbsp");
-            tmp_var = tmp_var.Replace("<", "&lt");
-            tmp_var = tmp_var.Replace(">", "&gt");
+            string tmp_var = activeForm.textField.Text; //html code of text in richTextBox1
+            tmp_var=tmp_var.Replace("&", "&amp;");
+            tmp_var = tmp_var.Replace(" ", "&nbsp;");
+            tmp_var = tmp_var.Replace("<", "&lt;");
+            tmp_var = tmp_var.Replace(">", "&gt;");
             tmp_var = tmp_var.Replace("\n", "<br />");
-            tmp_var = tmp_var.Replace("\"","&quot");
+            tmp_var = tmp_var.Replace("\"","&quot;");
 
             SaveTextToFileAsync(tmp_var, saveFileDialog);
         }
 
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             About_form about_Form= new About_form();
             about_Form.Show();
 
         }
 
-        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        private void HelpToolStripMenuItem_Click(object sender, EventArgs e)
         {
             HelpForm helpForm = new HelpForm();
             helpForm.Show();
         }
 
-        private void newFileToolStripMenuItem_Click(object sender, EventArgs e)
+        private void NewFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FieldForm fieldForm = new FieldForm();           
-            fieldForm.MdiParent = this;
+            FieldForm fieldForm = new FieldForm
+            {
+                MdiParent = this
+            };
             fieldForm.Show();
+            
             fieldForm.Text = "unnamed file";
         }
 
@@ -144,21 +145,17 @@ namespace Lab15
             }
         }
 
-        private void viewHelpToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ViewHelpToolStripMenuItem_Click(object sender, EventArgs e)
         {
             HelpForm helpForm = new HelpForm();
             helpForm.Show();
         }
 
-        private void aboutToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void AboutToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             About_form about_Form = new About_form();
             about_Form.Show();
         }
 
-        private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
-        {
-         
-        }
     }
 }

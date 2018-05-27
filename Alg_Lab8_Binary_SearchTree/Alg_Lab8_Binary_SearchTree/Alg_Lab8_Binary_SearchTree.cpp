@@ -158,16 +158,15 @@ public:
 
 
 
-
-
-
 };
+
+
 
 
 int main()
 {
 
-	BST * tree=new BST();
+	BST * tree = new BST();
 
 	cout << "input count of elements" << endl;
 	int n;
@@ -177,10 +176,9 @@ int main()
 	for (int i = 0; i < n; i++)
 	{
 		c = rand() % 100;
-		cout << c << " added";
+		
 		tree->AddElement(c);
-		system("pause");
-		system("cls");
+		
 
 	}
 
@@ -188,17 +186,18 @@ int main()
 
 	cout << "finished";
 	system("pause");
-	tree->RemoveElement(tree->root);
+	tree->RemoveElement(tree->Search(tree->root,58));
 
-
-	cout <<endl;
+	cout << endl;
 	tree->Walk(tree->root);
-	cout << endl<<"leaf: ";
+	cout << endl << "leaf: ";
 	tree->DrunkenWalk(tree->root);
 	cout << endl;
 	delete tree;
 	system("pause");
 
-    return 0;
+	return 0;
 }
+
+
 

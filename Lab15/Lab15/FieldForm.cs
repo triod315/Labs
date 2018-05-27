@@ -35,7 +35,7 @@ namespace Lab15
                 {
                     using (StreamWriter streamWriter = new StreamWriter(saveFileDialog.FileName))
                     {
-                        streamWriter.WriteAsync(richTextBox1.Text);
+                        streamWriter.WriteAsync(textField.Text);
                     }
                 }
                 else e.Cancel = true;
