@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Lab16_17__Part1_Alduin
+namespace Lab16_17__Part2_Flower
 {
     public partial class About : Form
     {

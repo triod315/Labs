@@ -37,9 +37,9 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBox = new System.Windows.Forms.PictureBox();
-            this.oneStepPrint = new System.Windows.Forms.Button();
             this.levelPlus = new System.Windows.Forms.Button();
             this.levelMinus = new System.Windows.Forms.Button();
+            this.dragonLevelLabel = new System.Windows.Forms.Label();
             this.mainMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
@@ -91,19 +91,19 @@
             // helpToolStripMenuItem1
             // 
             this.helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
-            this.helpToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.helpToolStripMenuItem1.Size = new System.Drawing.Size(116, 22);
             this.helpToolStripMenuItem1.Text = "&Help";
             this.helpToolStripMenuItem1.Click += new System.EventHandler(this.helpToolStripMenuItem1_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(113, 6);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.aboutToolStripMenuItem.Text = "&About...";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -119,16 +119,6 @@
             this.pictureBox.TabStop = false;
             this.pictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox_Paint);
             this.pictureBox.Resize += new System.EventHandler(this.pictureBox_Resize);
-            // 
-            // oneStepPrint
-            // 
-            this.oneStepPrint.Location = new System.Drawing.Point(12, 27);
-            this.oneStepPrint.Name = "oneStepPrint";
-            this.oneStepPrint.Size = new System.Drawing.Size(75, 23);
-            this.oneStepPrint.TabIndex = 2;
-            this.oneStepPrint.Text = "Print";
-            this.oneStepPrint.UseVisualStyleBackColor = true;
-            this.oneStepPrint.Click += new System.EventHandler(this.oneStepPrint_Click);
             // 
             // levelPlus
             // 
@@ -150,14 +140,23 @@
             this.levelMinus.UseVisualStyleBackColor = true;
             this.levelMinus.Click += new System.EventHandler(this.levelMinus_Click);
             // 
+            // dragonLevelLabel
+            // 
+            this.dragonLevelLabel.AutoSize = true;
+            this.dragonLevelLabel.Location = new System.Drawing.Point(13, 126);
+            this.dragonLevelLabel.Name = "dragonLevelLabel";
+            this.dragonLevelLabel.Size = new System.Drawing.Size(35, 13);
+            this.dragonLevelLabel.TabIndex = 5;
+            this.dragonLevelLabel.Text = "level: ";
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.dragonLevelLabel);
             this.Controls.Add(this.levelMinus);
             this.Controls.Add(this.levelPlus);
-            this.Controls.Add(this.oneStepPrint);
             this.Controls.Add(this.pictureBox);
             this.Controls.Add(this.mainMenu);
             this.MainMenuStrip = this.mainMenu;
@@ -182,10 +181,10 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.PictureBox pictureBox;
-        private System.Windows.Forms.Button oneStepPrint;
         private System.Windows.Forms.Button levelPlus;
         private System.Windows.Forms.Button levelMinus;
         private System.Windows.Forms.ToolStripMenuItem printPreviewToolStripMenuItem;
+        private System.Windows.Forms.Label dragonLevelLabel;
     }
 }
 

@@ -27,7 +27,6 @@ namespace Lab16_17__Part1_Alduin
             }
             else
             {
-
                 float nx = (float)(dx / 2);
                 float ny = (float)(dy / 2);
                 float dx2 = -ny + nx;
@@ -57,11 +56,7 @@ namespace Lab16_17__Part1_Alduin
 
         }
 
-        private void oneStepPrint_Click(object sender, EventArgs e)
-        {
-            dragon_level++;
-            pictureBox.Refresh();
-        }
+
 
         private int dragon_level = 0;
 
@@ -71,11 +66,10 @@ namespace Lab16_17__Part1_Alduin
             e.Graphics.Clear(pictureBox.BackColor);
 
             float dx = Math.Min(pictureBox.ClientSize.Width / 1.5f, pictureBox.ClientSize.Height) / 3f;
-
             PointF startPoint = new PointF()
             {
-                X = (pictureBox.ClientSize.Width - dx * 1.5f) / 2f + dx / 3f,
-                Y = (pictureBox.ClientSize.Height - dx) / 2f + dx / 3f
+               X = (pictureBox.ClientSize.Width - dx * 1.5f) / 2f + dx / 3f,
+               Y = (pictureBox.ClientSize.Height - dx) / 2f + dx / 3f
             };
 
             int level = dragon_level;//nudLevel.Value;
@@ -89,16 +83,27 @@ namespace Lab16_17__Part1_Alduin
             pictureBox.Refresh();
         }
 
+        Image dragon;
+
         private void levelPlus_Click(object sender, EventArgs e)
         {
-            dragon_level++;
-            pictureBox.Refresh();
+            if (dragon_level < 20)
+            {
+                dragon_level++;
+                pictureBox.Refresh();
+                dragonLevelLabel.Text ="Level: "+ dragon_level;
+            }
+            else MessageBox.Show("dragon level > 20", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void levelMinus_Click(object sender, EventArgs e)
         {
-            dragon_level--;
-            pictureBox.Refresh();
+            if (dragon_level > 0)
+            {
+                dragon_level--;
+                pictureBox.Refresh();
+                dragonLevelLabel.Text = "Level: " + dragon_level;
+            } else MessageBox.Show("dragon level <= 0", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void printPreviewToolStripMenuItem_Click(object sender, EventArgs e)
